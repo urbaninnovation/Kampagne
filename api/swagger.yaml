@@ -1,0 +1,108 @@
+---
+swagger: "2.0"
+info:
+  description: "Kleine Test Anwendung um Swagger zu erklären. Es Wird eine Kampagne\
+    \ angezeigt oder angelegt."
+  version: "1.0.0"
+  title: "Swagger Demo: Kampagne anlegen "
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "Deine_Emali@dingsda.com"
+  license:
+    name: "MIT"
+    url: "http://www.opensource.org/licenses/MIT"
+host: "Kampagne.swagger.io"
+basePath: "/v1"
+tags:
+- name: "Kampagne Demo"
+  description: "Alles über eine Api die eine Kampagne verarbeitet"
+  externalDocs:
+    description: "Steht auch auf Github"
+    url: "https://github.com/urbaninnovation/yaml_swagger.git"
+schemes:
+- "https"
+- "http"
+paths:
+  /Kampagne:
+    get:
+      tags:
+      - "Alle Kampagnen anzeigen"
+      summary: "Liste aller Kampagnen anzeigen"
+      description: "Zeigt alles an"
+      operationId: "KampagneList_KampagneGet"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "alle Kampagnen werden angezeigt"
+          schema:
+            $ref: "#/definitions/Kampagne"
+      x-swagger-router-controller: "AlleKampagnenAnzeigen"
+  /Kampagne/{KampagneName}:
+    get:
+      tags:
+      - "Get eine Kampagne über den Namen"
+      summary: ""
+      description: "zeigt eine Kampagne über den Namen an"
+      operationId: "KampagneName_KampagneGetByName"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "KampagneName"
+        in: "path"
+        description: "Name der Kampagne, die man sich anzeigen mächte"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Name der Kampahne die man angezeigt haben moechte"
+          schema:
+            $ref: "#/definitions/KampagneName"
+      x-swagger-router-controller: "GetEineKampagneBerDenNamen"
+definitions:
+  KampagneName:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      Kampagne_Name:
+        type: "string"
+        format: "string"
+      Kampagne_Beschreibung:
+        type: "string"
+        format: "string"
+      Kampagne_von_Datum:
+        type: "string"
+        format: "date-time"
+      Kampagne_Segment:
+        type: "string"
+        format: "string"
+        description: "Zweistelliges Segment Kuerzel"
+        enum:
+        - "LV"
+        - "SV"
+        - "KV"
+    example:
+      Kampagne_Name: "Kampagne_Name"
+      Kampagne_von_Datum: "2000-01-23T04:56:07.000+00:00"
+      Kampagne_Segment: "LV"
+      Kampagne_Beschreibung: "Kampagne_Beschreibung"
+      id: 0
+  Kampagne:
+    type: "array"
+    description: "Liste von allen Kampagnen"
+    items:
+      $ref: "#/definitions/KampagneName"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
